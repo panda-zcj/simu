@@ -1,0 +1,9 @@
+.pytest_cache
+bin
+lib
+log
+build
+thirdlib
+external
+doc/html
+tool/toolchain

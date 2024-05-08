@@ -1,0 +1,89 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "【CMake】Build",
+            "detail": "构建工程",
+            "command": "python ${workspaceFolder}${/}script${/}build.py",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "【CMake】Test",
+            "detail": "执行测试用例",
+            "command": "python ${workspaceFolder}${/}script${/}test.py",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "【python】create python env",
+            "detail": "创建python虚拟环境",
+            "type": "shell",
+            "command": "python -m venv .venv",
+            "problemMatcher": []
+        },
+        {
+            "label": "【python】select python Interpreter",
+            "detail": "设置默认的python解释器",
+            "type": "shell",
+            "command": "${command:python.setInterpreter}",
+            "problemMatcher": []
+        },
+        {
+            "label": "【python】install dependencies",
+            "detail": "安装环境依赖",
+            "type": "shell",
+            "command": "pip install -r ./requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple",
+            "dependsOn": [
+                "【python】select python Interpreter"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "【VSCODE】preview recommended extensions",
+            "detail": "显示推荐的插件",
+            "command": "${command:workbench.extensions.action.showRecommendedExtensions}",
+            "problemMatcher": []
+        },
+        {
+            "label": "【WinGet】deploy prepare",
+            "detail": "安装Windows 包管理器（winget）",
+            "type": "shell",
+            "command": "${workspaceFolder}${/}script${/}install_win-get.bat",
+            "hide": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "deploy development",
+            "detail": "部署开发环境",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}${/}script${/}deploy.bat",
+            },
+            "dependsOn": [
+                "【WinGet】deploy prepare"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "install toolchain",
+            "detail": "部署开发工具链",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}${/}script${/}msys2_install_toolchain.bat",
+            },
+            "problemMatcher": []
+        }
+    ],
+    "version": "2.0.0"
+}

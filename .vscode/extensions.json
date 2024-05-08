@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "obkoro1.korofileheader",
+        "hediet.vscode-drawio",
+        "shd101wyy.markdown-preview-enhanced",
+        "rsbondi.highlight-words",
+        "eamodio.gitlens",
+        "ms-python.python",
+        "twxs.cmake",
+        "ms-ceintl.vscode-language-pack-zh-hans",
+        "ms-toolsai.jupyter",
+        "ms-python.autopep8",
+        "cschlosser.doxdocgen"
+    ]
+}
