@@ -10,6 +10,8 @@
         "ms-ceintl.vscode-language-pack-zh-hans",
         "ms-toolsai.jupyter",
         "ms-python.autopep8",
-        "cschlosser.doxdocgen"
+        "cschlosser.doxdocgen",
+        "souche.vscode-mindmap",
+        "jebbs.plantuml"
     ]
 }

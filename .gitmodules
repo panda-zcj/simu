@@ -1,3 +1,9 @@
-[submodule "test/googletest"]
-	path = test/googletest
+[submodule "thirdlib/googletest"]
+	path = thirdlib/googletest
 	url = https://gitclone.com/github.com/google/googletest.git
+[submodule "thirdlib/json"]
+	path = thirdlib/json
+	url = https://gitclone.com/github.com/nlohmann/json.git
+[submodule "thirdlib/NanoLog"]
+	path = thirdlib/NanoLog
+	url = https://gitclone.com/github.com/Iyengar111/NanoLog.git

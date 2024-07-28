@@ -1,0 +1,99 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "simu_simulator",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}${/}bin${/}simu_simulator.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}${/}bin",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "windows": {
+                "miDebuggerPath": "D:\\Program Files\\MSYS2\\mingw64\\bin\\gdb.exe",
+                "setupCommands": [
+                    {
+                        "description": "为 gdb 启用整齐打印",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "description": "将反汇编风格设置为 Intel",
+                        "text": "-gdb-set disassembly-flavor intel",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "description": "链接ws2_32.dll",
+                        "text": "-gdb-set solib-search-path /c/Windows/System32",
+                        "ignoreFailures": false
+                    }
+                ]
+            }
+        },
+        {
+            "name": "simu_node",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}${/}bin${/}simu_node.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}${/}bin",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "windows": {
+                "miDebuggerPath": "D:\\Program Files\\MSYS2\\mingw64\\bin\\gdb.exe",
+                "setupCommands": [
+                    {
+                        "description": "为 gdb 启用整齐打印",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "description": "将反汇编风格设置为 Intel",
+                        "text": "-gdb-set disassembly-flavor intel",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "description": "链接ws2_32.dll",
+                        "text": "-gdb-set solib-search-path /c/Windows/System32",
+                        "ignoreFailures": false
+                    }
+                ]
+            }
+        },
+        {
+            "name": "simu_test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}${/}bin${/}simu_test.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}${/}bin",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "windows": {
+                "miDebuggerPath": "D:\\Program Files\\MSYS2\\mingw64\\bin\\gdb.exe",
+                "setupCommands": [
+                    {
+                        "description": "为 gdb 启用整齐打印",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "description": "将反汇编风格设置为 Intel",
+                        "text": "-gdb-set disassembly-flavor intel",
+                        "ignoreFailures": true
+                    }
+                ]
+            }
+        }
+    ]
+}

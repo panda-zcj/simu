@@ -1,0 +1,207 @@
+{
+    "simulatorTemplete": { // 仿真器内部维护的数据
+        "currentTime": 0,
+        "simulationDuration": 10000000,
+        // The simulation interval must be smaller than the minimum time for a simulation node's state to change.
+        "simulationInterval": 1000000.0,
+        // Simulator Init
+        // simulator Run
+        // simulator Stop
+        // simulator Resume
+        "simulatorState": "Simulator Run",
+        "events": {
+            "active": [
+                "0x0002000100000000"
+            ],
+            "detail": {
+                "0x0002000100000000": {
+                    "eventID": "0x0002000100000000",
+                    "startTime": 0,
+                    "endTime": 10000000,
+                    "expiredTime": 10000000,
+                    "responsedTime": 0,
+                    "srcNodeID": "0x2",
+                    "srcNodeDescription": "",
+                    "destNodeID": "0x1",
+                    "destNodeDescription": "",
+                    "msg": {
+                        "length": 18,
+                        "acknowledgedSize": 0,
+                        "payload": "this a node replay"
+                    },
+                    "eventState": "Event Init"
+                }
+            }
+        },
+        "nodes": {
+            "totalNodeNums": 2,
+            "onlineNodeNums": 2,
+            "active": [
+                "0x0001",
+                "0x0002"
+            ],
+            "detail": {
+                "0x0001": {
+                    "nodeID": "0x0001",
+                    "type": "master",
+                    "description": "this is the master node",
+                    "currentTime": 0,
+                    // Node Init
+                    // Node Movement
+                    // Node Static
+                    // Node Failure
+                    "nodeState": "Node Init",
+                    "userDefine": {
+                        "eventPropagationSpeed": 300000000,
+                        "bitRate": 1000000,
+                        "speed": [
+                            0.0,
+                            0.0
+                        ],
+                        "location": [
+                            0.0,
+                            0.0
+                        ],
+                        "energy": 5000.0,
+                        "power": 1.0,
+                        "snr": 10.0,
+                        "coverageArea": 300.0
+                    }
+                },
+                "0x0002": {
+                    "nodeID": "0x0002",
+                    "type": "slave",
+                    "description": "this is the slave node",
+                    "currentTime": 0,
+                    // Node Init
+                    // Node Movement
+                    // Node Static
+                    // Node Failure
+                    "nodeState": "Node Init",
+                    "userDefine": {
+                        "eventPropagationSpeed": 300000000,
+                        "bitRate": 1000000,
+                        "speed": [
+                            20.0,
+                            0.0
+                        ],
+                        "location": [
+                            108.0,
+                            219.0
+                        ],
+                        "energy": 500.0,
+                        "power": 1.0,
+                        "snr": 10.0,
+                        "coverageArea": 300.0
+                    }
+                }
+            }
+        },
+        "userDefine": {
+            "statistic": {
+                "totalThroughput": 0,
+                "totalAverageDelay": 0,
+                "totalEventNums": 0,
+                "totalEventSuccessNums": 0
+            }
+        }
+    },
+    "simulatorMsgTemplete": { // 仿真器交换报文的数据格式
+        "currentTime": 0,
+        "simulationDuration": 10000000,
+        // The simulation interval must be smaller than the minimum time for a simulation node's state to change.
+        "simulationInterval": 1000000.0,
+        // Simulator Init
+        // simulator Run
+        // simulator Stop
+        // simulator Resume
+        "simulatorState": "Simulator Run",
+        "events": {
+            "active": [
+                "0x0002000100000000"
+            ],
+            "detail": {
+                "0x0002000100000000": {
+                    "eventID": "0x0002000100000000",
+                    "startTime": 0,
+                    "endTime": 10000000,
+                    "expiredTime": 10000000,
+                    "responsedTime": 0,
+                    "srcNodeID": "0x1",
+                    "srcNodeDescription": "",
+                    "destNodeID": "0x0",
+                    "destNodeDescription": "",
+                    "msg": {
+                        "length": 18,
+                        "acknowledgedSize": 0,
+                        "payload": "this a node replay"
+                    },
+                    "eventState": "Event Init"
+                }
+            }
+        },
+        "nodes": {
+            "active": [
+                "0x0001",
+                "0x0002"
+            ],
+            "detail": {
+                "0x0001": {
+                    "nodeID": "0x0001",
+                    "type": "master",
+                    "description": "this is the master node",
+                    "currentTime": 0,
+                    // Node Init
+                    // Node Movement
+                    // Node Static
+                    // Node Failure
+                    "nodeState": "Node Init",
+                    "userDefine": {
+                        "eventPropagationSpeed": 300000000,
+                        "bitRate": 1000000,
+                        "speed": [
+                            0.0,
+                            0.0
+                        ],
+                        "location": [
+                            0.0,
+                            0.0
+                        ],
+                        "energy": 5000.0,
+                        "power": 1.0,
+                        "snr": 10.0,
+                        "coverageArea": 300.0
+                    }
+                },
+                "0x0002": {
+                    "nodeID": "0x0002",
+                    "type": "slave",
+                    "description": "this is the slave node",
+                    "currentTime": 0,
+                    // Node Init
+                    // Node Movement
+                    // Node Static
+                    // Node Failure
+                    "nodeState": "Node Init",
+                    "userDefine": {
+                        "eventPropagationSpeed": 300000000,
+                        "bitRate": 1000000,
+                        "speed": [
+                            20.0,
+                            0.0
+                        ],
+                        "location": [
+                            108.0,
+                            219.0
+                        ],
+                        "energy": 500.0,
+                        "power": 1.0,
+                        "snr": 10.0,
+                        "coverageArea": 300.0
+                    }
+                }
+            }
+        },
+        "userDefine": {}
+    }
+}

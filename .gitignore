@@ -1,4 +1,9 @@
+.venv
 .pytest_cache
+__pycache__
+*.pyc
+*.exe
+*.log
 bin
 lib
 log
@@ -7,3 +12,4 @@ thirdlib
 external
 doc/html
 tool/toolchain
+image/nanjing.km

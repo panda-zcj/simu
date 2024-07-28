@@ -1,4 +1,7 @@
 {
+    // *****************************koroFileHeader generator set****************************
+    // 添加函数注释 Control+Windows+T
+    // 添加文件注释 Control+Windows+I
     "fileheader.customMade": {
         // Author字段是文件的创建者 可以在specialOptions中更改特殊属性
         // 公司项目和个人项目可以配置不同的用户名与邮箱 搜索: gitconfig includeIf  比如: https://ayase.moe/2021/03/09/customized-git-config/
@@ -23,7 +26,7 @@
         // 版权声明 保留文件所有权利 自动替换年份 获取git配置的用户名和邮箱
         // 版权声明获取git配置, 与Author字段一致: ${git_name} ${git_email} ${git_name_email}
         // "custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by ${git_name}, All Rights Reserved. "
-        "custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by pikaqiu, All Rights Reserved. "
+        "custom_string_obkoro1_copyright": "copyright (c) ${now_year} by pikaqiu, All Rights Reserved. "
     },
     // 函数注释
     "fileheader.cursorMode": {
@@ -33,7 +36,7 @@
     },
     // 插件配置项
     "fileheader.configObj": {
-        "autoAdd": true, // 检测文件没有头部注释，自动添加文件头部注释
+        "autoAdd": false, // 检测文件没有头部注释，自动添加文件头部注释
         "autoAddLine": 100, // 文件超过多少行数 不再自动添加头部注释
         "autoAlready": true, // 只添加插件支持的语言以及用户通过`language`选项自定义的注释
         "supportAutoLanguage": [], // 设置之后，在数组内的文件才支持自动添加
@@ -46,24 +49,65 @@
             "项目的全称禁止项目自动添加头部注释, 使用快捷键自行添加"
         ],
         "folderBlacklist": [
+            // 文件夹或文件名禁止自动添加头部注释
             "node_modules"
-        ], // 文件夹或文件名禁止自动添加头部注释
+        ],
         "wideSame": false, // 头部注释等宽设置
         "wideNum": 13, // 头部注释字段长度 默认为13
         "functionWideNum": 0, // 函数注释等宽设置 设为0 即为关闭
-        // 头部注释第几行插入
         "headInsertLine": {
+            // 头部注释第几行插入
             "php": 2, // php文件 插入到第二行
         },
         "beforeAnnotation": {
+            // 头部注释之前插入内容
             "py": "#!/usr/bin/env python\n# coding=utf-8\n", // py文件默认，可修改
             "sh": "#!/bin/sh\n", // py文件默认，可修改
             // "*": "\n" // 所有文件的头部注释都在前面增加一个换行(除了py)
-        }, // 头部注释之前插入内容
+        },
         "afterAnnotation": {
+            // 头部注释之后插入内容
             "py": "\n\n\nif __name__ == \"__main__\":\n    pass"
-        }, // 头部注释之后插入内容
-        "specialOptions": {}, // 特殊字段自定义 比如: Author、LastEditTime、LastEditors、FilePath、Description、Date等
+        },
+        "specialOptions": {
+            // 特殊字段自定义 比如: Author、LastEditTime、LastEditors、FilePath、Description、Date等
+            "h": {
+                "Description": "message", // Description别名为brief
+                "description": "brief", // description别名为brief
+                "Author": "author",
+                "Date": "date",
+                "FilePath": "file",
+                "LastEditors": "par lastEditors",
+                "LastEditTime": "par lastEditTime"
+            },
+            "hpp": {
+                "Description": "message", // Description别名为brief
+                "description": "brief", // description别名为brief
+                "Author": "author",
+                "Date": "date",
+                "FilePath": "file",
+                "LastEditors": "par lastEditors",
+                "LastEditTime": "par lastEditTime"
+            },
+            "cpp": {
+                "Description": "message", // Description别名为brief
+                "description": "brief", // description别名为brief
+                "Author": "author",
+                "Date": "date",
+                "FilePath": "file",
+                "LastEditors": "par lastEditors",
+                "LastEditTime": "par lastEditTime"
+            },
+            "c": {
+                "Description": "message", // Description别名为brief
+                "description": "brief", // description别名为brief
+                "Author": "author",
+                "Date": "date",
+                "FilePath": "file",
+                "LastEditors": "par lastEditors",
+                "LastEditTime": "par lastEditTime"
+            }
+        },
         "switch": {
             "newlineAddAnnotation": true // 默认遇到换行符(\r\n \n \r)添加注释符号
         },
@@ -74,6 +118,7 @@
             "@"
         ], // 更改所有文件的自定义注释中的@符号
         "atSymbolObj": {
+            //  更改单独语言或文件的@
             "js": [
                 "",
                 "@"
@@ -82,12 +127,14 @@
                 "#",
                 "@"
             ] // .java文件 头部注释@改为#, 函数注释还是@
-        }, //  更改单独语言/文件的@
+        },
         "colon": [
             ": ",
             ": "
         ], // 更改所有文件的注释冒号
-        "colonObj": {}, //  更改单独语言/文件的冒号
+        "colonObj": {
+            //  更改单独语言或文件的冒号
+        },
         "filePathColon": "路径分隔符替换", // 默认值： mac: / window是: \
         "showErrorMessage": false, // 是否显示插件错误通知 用于debugger
         "writeLog": false, // 错误日志生成
@@ -97,22 +144,25 @@
         "designAddHead": false, // 添加注释图案时添加头部注释
         "headDesignName": "random", // 图案注释使用哪个图案 
         "headDesign": false, // 是否使用图案注释替换头部注释
-        // 自定义配置是否在函数内生成注释 不同文件类型和语言类型
         "cursorModeInternalAll": {
+            // 自定义配置是否在函数内生成注释 不同文件类型和语言类型
+            // 默认为false 在函数外生成函数注释
             "ts": true, // ts文件后缀是函数内生成函数注释
             "js": false, // js文件后缀是在函数外生成函数注释
             "python": true, // python语言类型文件时在函数内生成函数注释
             "defaultSetting": false // 默认是在函数外生成注释
-        }, // 默认为false 在函数外生成函数注释
+        },
         "openFunctionParamsCheck": true, // 开启关闭自动提取添加函数参数
-        "functionParamsShape": [
-            "{",
-            "}"
-        ], // 函数参数外形自定义 
-        // "functionParamsShape": "no type" 函数参数不需要类型
+        // "functionParamsShape": [
+        // // 函数参数外形自定义 
+        //     "{",
+        //     "}"
+        // ], 
+        "functionParamsShape": "no type", //函数参数不需要类型
         "functionBlankSpaceAll": {
+            // 函数注释空格缩进 默认为空对象 默认值为0 不缩进
             // "js": 2, // 单独设置文件：js文件后缀 缩进两格
-        }, // 函数注释空格缩进 默认为空对象 默认值为0 不缩进
+        },
         "functionTypeSymbol": "", // 参数没有类型时的默认值
         "typeParamOrder": "type param", // 参数类型 和 参数的位置自定义
         "NoMatchParams": "no show return", // 没匹配到函数参数，是否显示@param与@return这两行 默认不显示param
@@ -137,10 +187,16 @@
                 "functionParams": "typescript" // 函数注释使用ts语言的解析逻辑
             },
             // 一次匹配多种文件后缀文件 不用重复设置
-            "h/hpp/cpp": {
-                "head": "/*** ", // 统一增加几个*号
+            "h/hpp/c/cpp": {
+                "head": "/** ", // 统一增加几个*号
                 "middle": " * @",
-                "end": " */"
+                "end": " */",
+                // 函数自定义注释符号：如果有此配置 会默认使用
+                "functionSymbol": {
+                    "head": "/** ", // 统一增加几个*号
+                    "middle": " * @",
+                    "end": " */"
+                },
             },
             // 针对有特殊要求的文件如：test.blade.php
             "blade.php": {
@@ -157,48 +213,51 @@
             "use": false
         },
     },
+    // *****************************koroFileHeader generator set****************************
+
+
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
     },
     "C_Cpp.errorSquiggles": "disabled",
-    "terminal.integrated.env.windows": {
-        "PATH": "D:${/}Program Files (x86)${/}MSYS2${/}mingw64${/}bin;D:${/}Program Files (x86)${/}MSYS2${/}usr${/}bin;${env:PATH}",
-        "CHERE_INVOKING": "1"
+    "terminal.integrated.profiles.windows": {
+        "MSYS2": {
+            "path": "D:\\Program Files\\MSYS2\\usr\\bin\\bash.exe",
+            "args": [
+                "--login",
+                "-i"
+            ],
+            "env": {
+                "CHERE_INVOKING": "1",
+                "MSYS2_PATH_TYPE": "inherit",
+                "MSYSTEM": "MINGW64"
+            },
+            "icon": "account"
+        }
     },
+    "terminal.integrated.defaultProfile.windows": "MSYS2",
     "markdown-preview-enhanced.enableScriptExecution": true,
-    // Doxygen documentation generator set
-    "doxdocgen.c.triggerSequence": "/", // 触发自动注释的生成
-    "doxdocgen.c.commentPrefix": " * ", // 注释行的前缀
-    "doxdocgen.c.firstLine": "/**", // 注释行的首行
-    "doxdocgen.c.lastLine": "*/", // 注释行的尾行
-    // Smart text snippet for factory methods/functions.
-    "doxdocgen.c.factoryMethodText": "Create a {name} object",
-    // Smart text snippet for getters.
-    "doxdocgen.c.getterText": "Get the {name} object",
-    // Smart text snippet for setters.
-    "doxdocgen.c.setterText": "Set the {name} object",
-    // Smart text snippet for constructors.
-    "doxdocgen.cpp.ctorText": "Construct a new {name} object",
-    // Smart text snippet for destructors.
-    "doxdocgen.cpp.dtorText": "Destroy the {name} object",
-    // The template of the template parameter Doxygen line(s) that are generated. If empty it won't get generated at all.
-    "doxdocgen.cpp.tparamTemplate": "@tparam {param} ",
+    "python.defaultInterpreterPath": "D:\\Program Files\\MSYS2\\mingw64\\bin\\python.exe",
+
+
+
+    // *****************************Doxygen documentation generator set**********************
     // 文件注释：版权信息模板
     "doxdocgen.file.copyrightTag": [
-        "@copyright Copyright (c) {year}  深圳市奥瓦机器人有限公司"
+        "@copyright (c) {year} by pikaqiu, All Rights Reserved. "
     ],
-    // 文件注释：自定义模块，这里我添加一个修改日志
-    // "doxdocgen.file.customTag": [
-    //     "@par 修改日志:",
-    //     "<table>",
-    //     "<tr><th>Date       <th>Version <th>Author  <th>Description",
-    //     "<tr><td>{date} <td>1.0.1     <td>zhoulq     <td>内容",
-    //     "</table>",
-    // ],
+    // 文件注释：自定义模块，添加修改日志
+    "doxdocgen.file.customTag": [
+        "@par 修改日志:",
+        "<table>",
+        "<tr><th>Date       <th>Version <th>Author    <th>Description",
+        "<tr><td>{date} <td>1.0     <td>{author}  <td>修改内容",
+        "</table>",
+    ],
     // 文件注释的组成及其排序
     "doxdocgen.file.fileOrder": [
-        "file", // @file
-        "brief", // @brief 简介
+        "file", // 文件名
+        "brief", // 简介
         "author", // 作者
         "version", // 版本
         "date", // 日期
@@ -207,11 +266,11 @@
         "empty",
         "custom" // 自定义
     ],
-    // 下面时设置上面标签tag的具体信息
+    // 设置上面标签tag的具体信息
     "doxdocgen.file.fileTemplate": "@file {name}",
-    "doxdocgen.file.versionTag": "@version 1.0.1",
-    "doxdocgen.generic.authorEmail": "liqun_zhou91@163.com",
-    "doxdocgen.generic.authorName": "zhoulq",
+    "doxdocgen.file.versionTag": "@version 1.0",
+    "doxdocgen.generic.useGitUserName": true,
+    "doxdocgen.generic.useGitUserEmail": true,
     "doxdocgen.generic.authorTag": "@author {author} ({email})",
     // 日期格式与模板
     "doxdocgen.generic.dateFormat": "YYYY-MM-DD",
@@ -221,17 +280,9 @@
         "brief",
         "tparam",
         "param",
-        "return",
-        "author",
-        "date"
+        "return"
     ],
-    "doxdocgen.generic.paramTemplate": "@param{indent:8}{param}{indent:8}",
-    "doxdocgen.generic.returnTemplate": "@return {type} ",
-    "doxdocgen.generic.splitCasingSmartText": true,
-    "doxdocgen.generic.includeTypeAtReturn": true, // return 中包含类型信息
-    "doxdocgen.generic.boolReturnsTrueFalse": false, // bool 返回值拆分成 true 和 false 两种情况
-    "doxdocgen.generic.linesToGet": 20, // 回车后最多向下多少行去找函数声明
-    "doxdocgen.generic.useGitUserName": false, // {author} 是都根据 git config --get user.name 替换
-    "doxdocgen.generic.useGitUserEmail": false,
-    //declarations or definitions anymore.
+    "doxdocgen.generic.paramTemplate": "@param[in] {indent:8}{param}{indent:25}",
+    "doxdocgen.generic.returnTemplate": "@return {type}{indent:25}",
+    // *****************************Doxygen documentation generator set**********************
 }

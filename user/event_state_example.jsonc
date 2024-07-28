@@ -1,0 +1,23 @@
+{
+    // 事件报文格式
+    "eventID": "0x0009000a00000004",
+    "startTime": 0,
+    "endTime": 50000000,
+    "expiredTime": 50000000,
+    "responsedTime": 0,
+    "srcNodeID": "0x9",
+    "srcNodeDescription": "",
+    "destNodeID": "0xa",
+    "destNodeDescription": "",
+    "msg": {
+        "length": 15,
+        "acknowledgedSize": 0,
+        "payload": "this a node msg"
+    },
+    // "Event Triggered"
+    // "Event Response In Progress"
+    // "Event Conflict"
+    // "Event No Response"
+    // "Event Response Completed"
+    "eventState": "Event Init"
+}

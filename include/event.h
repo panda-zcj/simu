@@ -1,110 +1,99 @@
-/*
- * File: Event.h
- * Created Date: Sunday, August 7th 2022
- * Author: pikaqiu
- * -----
- * Last Modified: Wed Dec 21 2022
- * Modified By: pikaqiu
- * -----
- * Copyright (c) 2022 Dream
- *
- * All shall be well and all shall be well and all manner of things shall be well.
- * Nope...we're doomed!
+/**
+ * @author: pikaqiu_zcj
+ * @date: 2022-08-07
+ * @par lastEditors: pikaqiu_zcj
+ * @par lastEditTime: 2024-08-10
+ * @file: \include\event.h
+ * @message:
+ * @copyright (c) 2024 by pikaqiu, All Rights Reserved.
  */
 
 #ifndef EVENT_H
 #define EVENT_H
 
-#include "content.h"
-#include "times.h"
-#include <vector>
+#include "global.h"
+#include "nlohmann/json.hpp"
 #include <string>
-#include <unordered_map>
+#include <atomic>
 
 namespace simu
 {
+    /**
+     * @brief define the format of the data packets exchanged between the simulator and the simulation nodes
+     */
     class Event
     {
     private:
         /* data */
-        Time time;
-        Content *content;
-        Object *srcObject;
-        Object *dstObject;
-        unsigned int srcId;
-        unsigned int dstId;
-        std::string srcStr;
-        std::string dstStr;
-
+        static std::atomic<unsigned long long> __g_eventID__; ///< eventID <=> srcNodeID(eventID[63:48]) + dstNodeID(eventID[47:32]) + eventGlobalIndex(eventID[31:0])
     public:
-        Event();
+        Event(/* args */);
         ~Event();
 
-        void creatEvent(Time timeStamp,
-                        Content *content = nullptr,
-                        Object *srcObject = nullptr,
-                        Object *dstObject = nullptr,
-                        unsigned int srcId = 0,
-                        unsigned int dstId = 0,
-                        std::string srcStr = "",
-                        std::string dstStr = "");
-        Time getTimeStamp() const
-        {
-            return this->time;
-        }
-        Content *getEventContent() const
-        {
-            return this->content;
-        }
-        Object *getSrcObject() const
-        {
-            return this->srcObject;
-        }
-        Object *getDstObject() const
-        {
-            return this->dstObject;
-        }
-        unsigned int getSrcId() const
-        {
-            return this->srcId;
-        }
-        unsigned int getDstId() const
-        {
-            return this->dstId;
-        }
-        std::string getSrcStr() const
-        {
-            return this->srcStr;
-        }
-        std::string getDstStr() const
-        {
-            return this->dstStr;
-        }
-    };
-
-    class EventLoop
-    {
     private:
-        /* data */
-        std::vector<Event> _eventLoop;
-        std::unordered_map<unsigned int, Object *> moc_object;
-        unsigned int front;
-        unsigned int rear;
-        unsigned int size;
-        unsigned int capacity;
-        Time g_timeStamp;
-
-        bool releaseEvent();
+        /**
+         * @brief convert decimal to hexadecimal
+         * @param[in] num the decimal number to be converted
+         * @return std::string
+         */
+        static std::string getHexStr(unsigned long long num);
 
     public:
-        EventLoop(unsigned int capcity = 500);
-        ~EventLoop();
-
-        bool registerObject(unsigned int key, Object *object);
-        bool pushEvent(Event event);
-        void exec(Time simuTime);
+        /**
+         * @brief creat one event instance
+         * @param[in] duration The duration of the event, the precision is the milliseconds
+         * @param[in] maxPropagateTime the propagate delay of the event, the precision is the milliseconds
+         * @param[in] content Event Content
+         * @param[in] srcId ID of the Event Publisher
+         * @param[in] dstId ID of the Event Receiver
+         * @param[in] srcStr Detailed Description of the Event Publisher
+         * @param[in] dstStr Detailed Description of the Event Receiver
+         * @return nlohmann::ordered_json
+         */
+        static nlohmann::ordered_json getEvent(double duration,
+                                               double maxPropagateTime,
+                                               std::string &content,
+                                               std::string &srcId,
+                                               std::string &dstId,
+                                               std::string srcStr = "",
+                                               std::string dstStr = "");
+        /**
+         * @brief creat one event instance
+         * @param[in] duration The duration of the event, the precision is the milliseconds
+         * @param[in] maxPropagateTime the propagate delay of the event, the precision is the milliseconds
+         * @param[in] content Event Content
+         * @param[in] srcId ID of the Event Publisher
+         * @param[in] dstId ID of the Event Receiver
+         * @param[in] srcStr Detailed Description of the Event Publisher
+         * @param[in] dstStr Detailed Description of the Event Receiver
+         * @return nlohmann::ordered_json
+         */
+        static nlohmann::ordered_json getEvent(long long duration,
+                                               long long maxPropagateTime,
+                                               std::string &content,
+                                               std::string &srcId,
+                                               std::string &dstId,
+                                               std::string srcStr = "",
+                                               std::string dstStr = "");
+        /**
+         * @brief creat one event instance
+         * @param[in] duration The duration of the event, the precision is the milliseconds
+         * @param[in] maxPropagateTime the propagate delay of the event, the precision is the milliseconds
+         * @param[in] content Event Content
+         * @param[in] srcId ID of the Event Publisher
+         * @param[in] dstId ID of the Event Receiver
+         * @param[in] srcStr Detailed Description of the Event Publisher
+         * @param[in] dstStr Detailed Description of the Event Receiver
+         * @return nlohmann::ordered_json
+         */
+        static nlohmann::ordered_json getEvent(int duration,
+                                               int maxPropagateTime,
+                                               std::string &content,
+                                               std::string &srcId,
+                                               std::string &dstId,
+                                               std::string srcStr = "",
+                                               std::string dstStr = "");
     };
-    extern EventLoop eventLoop;
 
 } // namespace simu
 

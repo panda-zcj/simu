@@ -1,135 +1,146 @@
-/*
- * File: Event.cpp
- * Created Date: Sunday, August 7th 2022
- * Author: pikaqiu
- * -----
- * Last Modified: Mon Dec 19 2022
- * Modified By: pikaqiu
- * -----
- * Copyright (c) 2022 Dream
- *
- * All shall be well and all shall be well and all manner of things shall be well.
- * Nope...we're doomed!
+/**
+ * @author: pikaqiu_zcj
+ * @date: 2022-08-07
+ * @LastEditors: pikaqiu_zcj
+ * @LastEditTime: 2024-06-23
+ * @file: \src\event\event.cpp
+ * @message:
+ * @Copyright (c) 2024 by pikaqiu, All Rights Reserved.
  */
 
 #include "event.h"
-#include <iostream>
+#include "log.h"
+#include "times.h"
+#include <sstream>
+#include <iomanip>
 using namespace simu;
 
-Event::Event()
+const std::string simu::eventState[] = {
+    "Event Init",
+    "Event Triggered",
+    "Event Response In Progress",
+    "Event Conflict",
+    "Event No Response",
+    "Event Response Completed",
+};
+
+nlohmann::ordered_json eventTemplete = {
+    {"eventID", ""},
+    {"startTime", 0},
+    {"endTime", 0},
+    {"expiredTime", 0},
+    {"responsedTime", 0},
+    {"srcNodeID", ""},
+    {"srcNodeDescription", ""},
+    {"destNodeID", ""},
+    {"destNodeDescription", ""},
+    {"msg", {{"length", 0}, {"acknowledgedSize", 0}, {"payload", ""}}},
+    {"eventState", ""},
+};
+
+Event::Event(/* args */)
 {
 }
 
 Event::~Event()
 {
-    if (this->content != nullptr)
-    {
-        delete this->content;
-        this->content = nullptr;
-    }
 }
 
-void Event::creatEvent(Time timeStamp,
-                       Content *content,
-                       Object *srcObject,
-                       Object *dstObject,
-                       unsigned int srcId,
-                       unsigned int dstId,
-                       std::string srcStr,
-                       std::string dstStr)
+std::string Event::getHexStr(unsigned long long num)
 {
-    this->time = timeStamp;
-    this->srcObject = srcObject;
-    this->dstObject = dstObject;
-    this->srcId = srcId;
-    this->dstId = dstId;
-    this->srcStr = srcStr;
-    this->dstStr = dstStr;
-    this->content = content;
+    std::stringstream ss;
+    ss << "0x" << std::setw(16) << std::setfill('0') << std::hex << num;
+    return ss.str();
 }
 
-EventLoop::EventLoop(unsigned int capacity)
+nlohmann::ordered_json Event::getEvent(long long duration,
+                                       long long maxPropagateTime,
+                                       std::string &content,
+                                       std::string &srcId,
+                                       std::string &dstId,
+                                       std::string srcStr,
+                                       std::string dstStr)
 {
-    this->_eventLoop = std::vector<Event>(capacity);
-    this->front = 0;
-    this->rear = 0;
-    this->size = 0;
-    this->capacity = capacity;
+    nlohmann::ordered_json event(eventTemplete);
+    unsigned long long src_id = std::stoi(srcId, nullptr, 16);
+    unsigned long long dst_id = std::stoi(dstId, nullptr, 16);
+    Time start = simu::_global_time_;
+    event["startTime"] = start.getTimeStamp();
+    start += duration;
+    event["endTime"] = start.getTimeStamp();
+    start += maxPropagateTime;
+    event["expiredTime"] = start.getTimeStamp();
+    event["eventID"] = getHexStr((((SIMULATION_NODE_ID_MASK(src_id) << 16) | SIMULATION_NODE_ID_MASK(SIMULATION_NODE_ID_MASK(dst_id))) << 32) | (__g_eventID__++));
+    event["srcNodeID"] = srcId;
+    event["srcNodeDescription"] = srcStr;
+    event["destNodeID"] = dstId;
+    event["destNodeDescription"] = dstStr;
+    event["eventState"] = eventState[static_cast<int>(EventState::EventInit)];
+    event["msg"]["length"] = content.size();
+    event["msg"]["payload"] = content;
+
+    LOG_DEBUG << event.dump(4);
+    return event;
 }
 
-EventLoop::~EventLoop()
+nlohmann::ordered_json Event::getEvent(int duration,
+                                       int maxPropagateTime,
+                                       std::string &content,
+                                       std::string &srcId,
+                                       std::string &dstId,
+                                       std::string srcStr,
+                                       std::string dstStr)
 {
+    nlohmann::ordered_json event(eventTemplete);
+    unsigned long long src_id = std::stoi(srcId, nullptr, 16);
+    unsigned long long dst_id = std::stoi(dstId, nullptr, 16);
+    Time start = simu::_global_time_;
+    event["startTime"] = start.getTimeStamp();
+    start += duration;
+    event["endTime"] = start.getTimeStamp();
+    start += maxPropagateTime;
+    event["expiredTime"] = start.getTimeStamp();
+    event["eventID"] = getHexStr((((SIMULATION_NODE_ID_MASK(src_id) << 16) | SIMULATION_NODE_ID_MASK(dst_id)) << 32) | (__g_eventID__++));
+    event["srcNodeID"] = srcId;
+    event["srcNodeDescription"] = srcStr;
+    event["destNodeID"] = dstId;
+    event["destNodeDescription"] = dstStr;
+    event["eventState"] = eventState[static_cast<int>(EventState::EventInit)];
+    event["msg"]["length"] = content.size();
+    event["msg"]["payload"] = content;
+
+    LOG_DEBUG << event.dump(4);
+    return event;
 }
 
-bool EventLoop::registerObject(unsigned int key, Object *object)
+nlohmann::ordered_json Event::getEvent(double duration,
+                                       double maxPropagateTime,
+                                       std::string &content,
+                                       std::string &srcId,
+                                       std::string &dstId,
+                                       std::string srcStr,
+                                       std::string dstStr)
 {
-    bool res = false;
-    if (moc_object.find(key) == moc_object.end())
-    {
-        moc_object.insert(std::make_pair(key, object));
-        res = true;
-    }
-    return res;
+    nlohmann::ordered_json event(eventTemplete);
+    unsigned long long src_id = std::stoi(srcId, nullptr, 16);
+    unsigned long long dst_id = std::stoi(dstId, nullptr, 16);
+    Time start = simu::_global_time_;
+    event["startTime"] = start.getTimeStamp();
+    start += duration;
+    event["endTime"] = start.getTimeStamp();
+    start += maxPropagateTime;
+    event["expiredTime"] = start.getTimeStamp();
+    event["eventID"] = getHexStr((((SIMULATION_NODE_ID_MASK(src_id) << 16) | SIMULATION_NODE_ID_MASK(dst_id)) << 32) | (__g_eventID__++));
+    event["srcNodeID"] = srcId;
+    event["srcNodeDescription"] = srcStr;
+    event["destNodeID"] = dstId;
+    event["destNodeDescription"] = dstStr;
+    event["eventState"] = eventState[static_cast<int>(EventState::EventInit)];
+    event["msg"]["length"] = content.size();
+    event["msg"]["payload"] = content;
+
+    LOG_DEBUG << event.dump(4);
+    return event;
 }
 
-bool EventLoop::pushEvent(Event event)
-{
-    if (this->size >= this->capacity)
-    {
-        std::cout << "event over capacity" << std::endl;
-        return false;
-    }
-    _eventLoop[this->rear] = event;
-    this->rear = (this->rear + this->capacity + 1) % this->capacity;
-    this->size++;
-    unsigned int end = (this->front + this->capacity - 1) % this->capacity;
-    unsigned int cur = (this->rear + this->capacity - 1) % this->capacity;
-    unsigned int pre = (cur + this->capacity - 1) % this->capacity;
-    while (pre != end)
-    {
-        if (_eventLoop[cur].getTimeStamp() < _eventLoop[pre].getTimeStamp())
-        {
-            // todo std::move
-            Event temp = _eventLoop[cur];
-            _eventLoop[cur] = _eventLoop[pre];
-            _eventLoop[cur] = temp;
-            cur = (cur + this->capacity - 1) % this->capacity;
-            pre = (pre + this->capacity - 1) % this->capacity;
-            continue;
-        }
-        break;
-    }
-    return true;
-}
-
-bool EventLoop::releaseEvent()
-{
-    this->size--;
-    if (this->size < 0)
-    {
-        this->size = 0;
-        return false;
-    }
-    this->front = (this->front + this->capacity + 1) % this->capacity;
-    return true;
-}
-
-void EventLoop::exec(Time simuTime)
-{
-    // 执行事件函数
-    for (; g_timeStamp < simuTime; g_timeStamp = g_timeStamp + (unsigned long)1)
-    {
-        /* code */
-        for (int i = this->front; i < this->rear; i = (i + this->capacity + 1) % this->capacity)
-        {
-            if (this->_eventLoop[i].getTimeStamp() <= this->g_timeStamp)
-            {
-                bool res = this->_eventLoop[i].getDstObject()->processEvent(this->_eventLoop[i].getEventContent());
-                // todo res 处理
-                releaseEvent();
-            }
-        }
-    }
-}
-
-EventLoop eventLoop = EventLoop();
+std::atomic<unsigned long long> Event::__g_eventID__{0};

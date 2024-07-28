@@ -1,0 +1,11 @@
+{
+    "simulatorTemplete": {
+        "statistic": {
+            "totalThroughput": 0,
+            "totalAverageDelay": 0,
+            "totalEventNums": 0,
+            "totalEventSuccessNums": 0
+        }
+    },
+    "simulatorMsgTemplete": {}
+}

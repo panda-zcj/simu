@@ -1,100 +1,142 @@
-/*** 
- * @Author: pikaqiu_zcj
- * @Date: 2022-12-18
- * @LastEditors: pikaqiu_zcj
- * @LastEditTime: 2024-04-14
- * @FilePath: \include\times.h
- * @Description: 
- * @Copyright (c) 2024 by pikaqiu, All Rights Reserved. 
+/** 
+ * @author: pikaqiu_zcj
+ * @date: 2022-12-18
+ * @par lastEditors: pikaqiu_zcj
+ * @par lastEditTime: 2024-08-01
+ * @file: \include\times.h
+ * @message: 
+ * @copyright (c) 2024 by pikaqiu, All Rights Reserved. 
  */
 
 #ifndef TIME_H
 #define TIME_H
 
+#include "global.h"
+#include <string>
+#include <chrono>
+
 namespace simu
 {
-// 时间戳精度为1ns
-#define TIMESTAMP_PRECISION (1000)
-// 最大时间范围
-#define MAX_USEC (1000)
-#define MAX_MSEC (1000)
-#define MAX_SEC (60)
-#define MAX_MIN (60)
-#define MAX_HOUR (24)
-
     class Time
     {
     private:
         /* data */
-        unsigned long timeStamp;
+        std::chrono::high_resolution_clock::time_point timePoint;
+        std::tm start_time;
 
     public:
-        Time(unsigned long curTimeStamp = 0);
+        /**
+         * @brief Construct a new Time object
+         * @param[in] curTimeOffset the offset of The current time point, the precision is the Millisecond
+         */
+        Time(long long curTimeOffset = 0);
+        /**
+         * @brief Construct a new Time object
+         * @param[in] curTimeOffset the offset of The current time point, the precision is the Millisecond
+         */
+        Time(int curTimeOffset = 0);
+        /**
+         * @brief Construct a new Time object
+         * @param[in] curTimeOffset the offset of The current time point, the precision is the Millisecond
+         */
+        Time(double curTimeOffset = 0.0);
         ~Time();
 
     public:
-        int getDay() const
+        /**
+         * @brief Get the Time Stamp, the precision is the nanoseconds
+         * @return std::chrono::nanoseconds::rep
+         */
+        std::chrono::nanoseconds::rep getTimeStamp() const
         {
-            return timeStamp / TIMESTAMP_PRECISION / MAX_USEC / MAX_MSEC / MAX_SEC / MAX_MIN / MAX_HOUR;
+            return std::chrono::time_point_cast<std::chrono::nanoseconds>(timePoint).time_since_epoch().count();
         }
-        int getHour() const
-        {
-            return timeStamp / TIMESTAMP_PRECISION / MAX_USEC / MAX_MSEC / MAX_SEC / MAX_MIN % MAX_HOUR;
-        }
-        int getMin() const
-        {
-            return timeStamp / TIMESTAMP_PRECISION / MAX_USEC / MAX_MSEC / MAX_SEC % MAX_MIN;
-        }
-        int getSec() const
-        {
-            return timeStamp / TIMESTAMP_PRECISION / MAX_USEC / MAX_MSEC % MAX_SEC;
-        }
-        int getMsec() const
-        {
-            return timeStamp / TIMESTAMP_PRECISION / MAX_USEC % MAX_MSEC;
-        }
-        int getUsec() const
-        {
-            return timeStamp / TIMESTAMP_PRECISION % MAX_USEC;
-        }
-        unsigned long getTime() const
-        {
-            return timeStamp;
-        }
-        void setTime(unsigned long curTimeStamp = 0)
-        {
-            timeStamp = curTimeStamp;
-        }
-        void printCurTime();
+        /**
+         * @brief Set the Time object
+         * @param[in] curTimeOffset the offset of The current time point, the precision is the Millisecond
+         */
+        void setTime(double curTimeOffset = 0.0);
+        /**
+         * @brief format current time object
+         * @return std::string  the string of format current time object
+         */
+        std::string printCurTime();
 
     public:
         /**
-         * @brief 返回延后的时间戳
-         *
-         * @param after 延后时间，单位为ms
+         * @brief The current time adds a delay
+         * @param[in] after delay time, expressed in ms
          * @return Time&
-         */       
+         */
+        Time &operator+(const long long after);
+        /**
+         * @brief The current time adds a delay
+         * @param[in] after delay time, expressed in ms
+         * @return Time&
+         */
+        Time &operator+(const int after);
+        /**
+         * @brief The current time adds a delay
+         * @param[in] after delay time, expressed in ms
+         * @return Time&
+         */
         Time &operator+(const double after);
         /**
-         * @brief 返回延后的时间戳
-         *
-         * @param after 延后时间，单位为ms
+         * @brief The current time adds a delay
+         * @param[in] after delay time, expressed in ms
          * @return Time&
          */
-        Time &operator+(const unsigned long after);
+        Time &operator+=(const long long after);
         /**
-         * @brief 
-         * 
-         * @param cmp 
-         * @return true 
-         * @return false 
+         * @brief The current time adds a delay
+         * @param[in] after delay time, expressed in ms
+         * @return Time&
+         */
+        Time &operator+=(const int after);
+        /**
+         * @brief The current time adds a delay
+         * @param[in] after delay time, expressed in ms
+         * @return Time&
+         */
+        Time &operator+=(const double after);
+        /**
+         * @brief return True if less than, False if no
+         * @param[in] cmp Time object to be compared
+         * @return true
+         * @return false
          */
         bool operator<(const Time &cmp);
+        /**
+         * @brief Return True if large than, False if no
+         * @param[in] cmp Time object to be compared
+         * @return true
+         * @return false
+         */
         bool operator>(const Time &cmp);
+        /**
+         * @brief Return True if equal, False if no
+         * @param[in] cmp Time object to be compared
+         * @return true
+         * @return false
+         */
         bool operator==(const Time &cmp);
+        /**
+         * @brief Return True if less than or equal, False if not
+         * @param[in] cmp Time object to be compared
+         * @return true
+         * @return false
+         */
         bool operator<=(const Time &cmp);
+        /**
+         * @brief Return True if greater than or equal to, False if not
+         * @param[in] cmp  Time object to be compared
+         * @return true
+         * @return false
+         */
         bool operator>=(const Time &cmp);
     };
+
+    extern Time _global_time_;
 
 } // namespace simu
 
