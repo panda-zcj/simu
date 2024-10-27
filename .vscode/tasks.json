@@ -79,9 +79,6 @@
             "windows": {
                 "command": "pacman -S --needed mingw-w64-x86_64-python mingw-w64-x86_64-python-pip"
             },
-            "dependsOn": [
-                "【5】【python】select python Interpreter"
-            ],
             "problemMatcher": []
         },
         {
@@ -147,7 +144,7 @@
                 }
             },
             "linux": {
-                "command": "${workspaceFolder}${/}script${/}deploy.sh"
+                "command": "chmod +x ${workspaceFolder}${/}script${/}deploy.sh && ${workspaceFolder}${/}script${/}deploy.sh"
             },
             "dependsOn": [
                 "【WinGet】deploy prepare"
@@ -165,7 +162,7 @@
                 }
             },
             "linux": {
-                "command": "${workspaceFolder}${/}script${/}linux_install_toolchain.sh",
+                "command": "chmod +x ${workspaceFolder}${/}script${/}linux_install_toolchain.sh && ${workspaceFolder}${/}script${/}linux_install_toolchain.sh",
             },
             "problemMatcher": []
         },
@@ -185,9 +182,6 @@
                     "cwd": "${workspaceFolder}"
                 }
             },
-            "dependsOn": [
-                "【5】【python】select python Interpreter"
-            ],
             "problemMatcher": []
         }
     ],

@@ -23,7 +23,7 @@
 #define LOG_FILENAME "simulation"
 #define LOG_FILE_ROLL_SIZE_MB (1)                                ///< the max size (MB) of per log file
 #define LOG_LEVEL nanolog::LogLevel::DEBUG                       ///< select one from DEBUG、INFO、WARN、CRIT
-#define LOG_OUTPUT_CONSOLE (1)                                   ///< 1 indicates logs are output to the console, otherwise which are output to the file
+#define LOG_OUTPUT_CONSOLE (0)                                   ///< 1 indicates logs are output to the console, otherwise which are output to the file
 #define IPC_TIMEOUT_SIMULATOR_WAIT_REGISTER (10000)              ///< the timeout duration for IPC communication, during which the simulator waits for node registration, is specified in milliseconds
 #define IPC_TIMEOUT_RECEIVE_DATA (-1)                            ///< the timeout duration for IPC communication, during which the simulator or node waits to receive data, is specified in milliseconds. A value of -1 indicates that there is no timeout
 #define IPC_SOCKET_LISTEN_PORT (8888)                            ///< the port number that the simulator listens on for socket communication
