@@ -12,6 +12,9 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
+#ifdef __linux__
+#include <cstring>
+#endif
 using namespace simu;
 
 std::mutex mtx; // 定义一个互斥锁
@@ -25,9 +28,9 @@ TCPSocket::TCPSocket() : sockfdClient(-1), sockfdServer(-1), sockfdUIServer(-1)
     {
         LOG_CRIT << "WSAStartup failed";
     }
+#endif
     fdsNumsActive.store(0);
     stopPoll.store(false);
-#endif
 }
 
 TCPSocket::~TCPSocket()

@@ -59,7 +59,11 @@ namespace
 		char buffer[32];
 		strftime(buffer, 32, "%H:%M:%S.", gmtime);
 		char nanoseconds[10];
+#ifdef _WIN32
 		sprintf(nanoseconds, "%09llu", timestamp % 1000000000);
+#else
+		sprintf(nanoseconds, "%09lu", timestamp % 1000000000);
+#endif
 		os << '[' << buffer << nanoseconds << ']';
 	}
 
@@ -603,7 +607,7 @@ namespace nanolog
 			log_file_name.append(".log");
 			m_os->open(log_file_name, std::ofstream::out | std::ofstream::trunc);
 #else
-			m_os.reset(&std::cout);
+			m_os = &std::cout;
 #endif
 		}
 
@@ -617,7 +621,7 @@ namespace nanolog
 #else
 		uint32_t const m_log_file_roll_size_bytes;
 		std::string const m_name;
-		std::unique_ptr<std::ostream> m_os;
+		std::ostream *m_os;
 #endif
 	};
 

@@ -80,7 +80,7 @@
                 "command": "pacman -S --needed mingw-w64-x86_64-python mingw-w64-x86_64-python-pip"
             },
             "dependsOn": [
-                "【python】select python Interpreter"
+                "【5】【python】select python Interpreter"
             ],
             "problemMatcher": []
         },
@@ -97,7 +97,7 @@
             "type": "shell",
             "command": "pip install -r ./requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple",
             "dependsOn": [
-                "【python】select python Interpreter"
+                "【5】【python】select python Interpreter"
             ],
             "problemMatcher": []
         },
@@ -123,6 +123,9 @@
                         ]
                     }
                 }
+            },
+            "linux": {
+                "command": "echo deploy prepare"
             },
             "hide": true,
             "problemMatcher": []
@@ -183,7 +186,7 @@
                 }
             },
             "dependsOn": [
-                "【python】select python Interpreter"
+                "【5】【python】select python Interpreter"
             ],
             "problemMatcher": []
         }

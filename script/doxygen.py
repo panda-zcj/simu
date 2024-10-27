@@ -17,7 +17,7 @@ from pythonLib import *
 if __name__ == "__main__":
     if platform.system().lower() == "linux":
         log.info("[BUILD] start build objects in linux")
-        command.command("cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja simu_doc".format(ProjectDir),
+        command.command("cd build && rm * -rf && cmake .. -DDOXYGEN_OUTPUT_DIRECTORY={}/doc -DCMAKE_INSTALL_PREFIX={} && make simu_doc".format(ProjectDir, ProjectDir),
                         cwd=ProjectDir, shell=True)
     elif platform.system().lower() == "windows":
         log.info("[BUILD] start build objects in windows")

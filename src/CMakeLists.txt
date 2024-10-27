@@ -10,14 +10,38 @@ target_include_directories(simulator_share PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_include_directories(simulator_share PUBLIC ${CMAKE_SOURCE_DIR}/include/NanoLog)
 target_include_directories(simulator_share PUBLIC ${CMAKE_SOURCE_DIR}/include/nlohmann)
 target_include_directories(simulator_share PUBLIC ${INCLUDE_USER})
-target_link_libraries(simulator_share ${WS2_32_LIBRARY})
+if(WIN32)
+    # Windows-specific settings
+    message(STATUS "Configuring for Windows")
+
+    # 可以添加特定的链接库或编译选项
+    target_link_libraries(simulator_share ${WS2_32_LIBRARY})
+elseif(UNIX)
+    # Linux-specific settings
+    message(STATUS "Configuring for Linux")
+
+    # 可以添加特定的链接库或编译选项
+    # target_link_libraries(simulator_share some_linux_specific_library)
+endif()
 set_target_properties(simulator_share PROPERTIES  OUTPUT_NAME simulator)
 add_library(simulator_static STATIC ${SRC_SIMULATOR})
 target_include_directories(simulator_static PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_include_directories(simulator_static PUBLIC ${CMAKE_SOURCE_DIR}/include/NanoLog)
 target_include_directories(simulator_static PUBLIC ${CMAKE_SOURCE_DIR}/include/nlohmann)
 target_include_directories(simulator_static PUBLIC ${INCLUDE_USER})
-target_link_libraries(simulator_static ${WS2_32_LIBRARY})
+if(WIN32)
+    # Windows-specific settings
+    message(STATUS "Configuring for Windows")
+
+    # 可以添加特定的链接库或编译选项
+    target_link_libraries(simulator_static ${WS2_32_LIBRARY})
+elseif(UNIX)
+    # Linux-specific settings
+    message(STATUS "Configuring for Linux")
+
+    # 可以添加特定的链接库或编译选项
+    # target_link_libraries(simulator_static some_linux_specific_library)
+endif()
 set_target_properties(simulator_static PROPERTIES  OUTPUT_NAME simulator)
 
 

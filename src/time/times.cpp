@@ -132,7 +132,11 @@ std::string Time::printCurTime()
     char buffer[32] = {0};
     strftime(buffer, 32, "%H:%M:%S.", gmtime);
     char nanoseconds[12] = {0};
+#ifdef _WIN32
     sprintf(nanoseconds, "%09llu", timestamp % 1000000000);
+#else
+    sprintf(nanoseconds, "%09lu", timestamp % 1000000000);
+#endif
 
     // 创建一个 stringstream 对象用于存储输出
     std::ostringstream oss;

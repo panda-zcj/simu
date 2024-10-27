@@ -63,8 +63,12 @@ def compilerEasyloggingpp():
     src_path = os.path.join(ProjectDir, "src", "easyloggingpp")
     if not os.path.exists(os.path.join(repository_path, "build")):
         os.makedirs(os.path.join(repository_path, "build"))
-    command.command(
-        "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
+    if platform.system().lower() == "linux":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && make install".format(ProjectDir), cwd=repository_path, shell=True)
+    elif platform.system().lower() == "windows":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
     cmake_path = os.path.join(ProjectDir, "share")
     if os.path.exists(cmake_path):
         for root, _, files in os.walk(cmake_path):
@@ -98,8 +102,12 @@ def compilerSpdlog():
     repository_path = os.path.join(ProjectDir, "thirdlib", "spdlog")
     if not os.path.exists(os.path.join(repository_path, "build")):
         os.makedirs(os.path.join(repository_path, "build"))
-    command.command(
-        "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
+    if platform.system().lower() == "linux":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && make && make install".format(ProjectDir), cwd=repository_path, shell=True)
+    elif platform.system().lower() == "windows":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
 
 
 def compilerLog():
@@ -112,8 +120,12 @@ def compilerJson():
     repository_path = os.path.join(ProjectDir, "thirdlib", "json")
     if not os.path.exists(os.path.join(repository_path, "build")):
         os.makedirs(os.path.join(repository_path, "build"))
-    command.command(
-        "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
+    if platform.system().lower() == "linux":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && make && make install".format(ProjectDir), cwd=repository_path, shell=True)
+    elif platform.system().lower() == "windows":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
     cmake_path = os.path.join(ProjectDir, "share")
     if os.path.exists(cmake_path):
         for root, _, files in os.walk(cmake_path):
@@ -134,8 +146,12 @@ def compilerGtest():
     repository_path = os.path.join(ProjectDir, "thirdlib", "googletest")
     if not os.path.exists(os.path.join(repository_path, "build")):
         os.makedirs(os.path.join(repository_path, "build"))
-    command.command(
-        "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
+    if platform.system().lower() == "linux":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && make && make install".format(ProjectDir), cwd=repository_path, shell=True)
+    elif platform.system().lower() == "windows":
+        command.command(
+            "cd build && rm * -rf && cmake .. -DCMAKE_INSTALL_PREFIX={} && ninja && ninja install".format(ProjectDir), cwd=repository_path, shell=True)
 
 
 def downloadThirdRepository():
