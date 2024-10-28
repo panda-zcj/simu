@@ -47,7 +47,11 @@ class JsonSuite : public ::testing::Test
 protected:
     static void SetUpTestSuite()
     {
+#ifdef _WIN32
         nanoLogInit("test", ".\\", nanolog::LogLevel::CRIT);
+#else
+        nanoLogInit("test", "./", nanolog::LogLevel::CRIT);
+#endif
         std::cout << std::endl;
     }
 
